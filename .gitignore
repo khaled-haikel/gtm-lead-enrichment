@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+next-env.d.ts
+
+# Test and type-check output
+coverage/
+.vitest/
+*.tsbuildinfo
+
+# Environment files: only the example is committed
+.env*
+!.env.example
+
+# Vercel
+.vercel/
+
+# Logs
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
