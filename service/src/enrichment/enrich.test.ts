@@ -7,6 +7,7 @@ import {
   WEBSITE_TEXT,
   enrichRequest,
 } from "../testing/fake-model";
+import { SYSTEM_PROMPT, buildUserMessage } from "../llm/prompt";
 import type { Extraction } from "./contract";
 import { enrich } from "./enrich";
 import { DROP_REASONS } from "./evidence";
@@ -81,6 +82,25 @@ describe("enrich", () => {
         retry: undefined,
       },
     ]);
+  });
+
+  it("never sends the lead's personal fields to the model, on the first try or the retry", async () => {
+    const personal = {
+      firstName: "Zebulon",
+      lastName: "Quixworth",
+      email: "zq.private@mailbox.example",
+      title: "Chief Secrets Officer",
+    };
+    const request = enrichRequest();
+    const model = new FakeModel([{ company_type: "Retailer" }, VALID_EXTRACTION]);
+    await enrich({ ...request, lead: { ...request.lead, ...personal } }, model);
+
+    // Everything the model could see: its inputs, the system prompt and each user message.
+    expect(model.calls).toHaveLength(2);
+    const seen = [JSON.stringify(model.calls), SYSTEM_PROMPT, ...model.calls.map(buildUserMessage)].join("\n");
+    for (const value of [...Object.values(personal), "zq.private"]) {
+      expect(seen).not.toContain(value);
+    }
   });
 
   it("falls back to the lead's website when websiteUrl is absent", async () => {

@@ -65,6 +65,8 @@ export async function enrich(request: EnrichRequest, model: ExtractionModel): Pr
   // The evidence check uses the same truncated text the model saw: it can only quote that.
   const websiteText = truncateWebsiteText(request.websiteText ?? "");
   const usage: TokenUsage = { inputTokens: 0, outputTokens: 0 };
+  // No personal data reaches the model: of the lead, only the company name and website are
+  // sent. First name, last name, email and title stay in this service (enrich.test.ts pins it).
   const extraction = await extractValidated(
     model,
     {

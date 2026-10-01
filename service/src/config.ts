@@ -17,15 +17,18 @@ const baseSchema = z.object({
   LLM_MODEL_ID: required,
 });
 
+// Bedrock settings use their own BEDROCK_* names, never the AWS_* ones: Vercel runs on AWS
+// and can inject AWS_* values that are not this service's credentials.
 const bedrockSchema = z.object({
-  AWS_REGION: required,
-  AWS_ACCESS_KEY_ID: required,
-  AWS_SECRET_ACCESS_KEY: required,
-  // The Bedrock SDK prefers a bearer token from the environment over explicit keys, which
+  BEDROCK_REGION: required,
+  BEDROCK_ACCESS_KEY_ID: required,
+  BEDROCK_SECRET_ACCESS_KEY: required,
+  // The Bedrock SDK reads this from the environment and prefers it over explicit keys, which
   // would silently bypass the IAM user this service is meant to run as.
   AWS_BEARER_TOKEN_BEDROCK: z
     .never({
-      error: "must not be set: the service signs with AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY",
+      error:
+        "must not be set: the service signs with BEDROCK_ACCESS_KEY_ID and BEDROCK_SECRET_ACCESS_KEY",
     })
     .optional(),
 });
@@ -62,9 +65,9 @@ export function loadConfig(env: Record<string, string | undefined> = process.env
     model: {
       provider: base.LLM_PROVIDER,
       modelId: base.LLM_MODEL_ID,
-      region: bedrock.AWS_REGION,
-      accessKeyId: bedrock.AWS_ACCESS_KEY_ID,
-      secretAccessKey: bedrock.AWS_SECRET_ACCESS_KEY,
+      region: bedrock.BEDROCK_REGION,
+      accessKeyId: bedrock.BEDROCK_ACCESS_KEY_ID,
+      secretAccessKey: bedrock.BEDROCK_SECRET_ACCESS_KEY,
     },
   };
 }
