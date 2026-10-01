@@ -98,3 +98,25 @@ Everything in English: code, comments, commit messages, docs and Slack message t
 - If a vendor API, SDK or n8n node behaves differently from what this file or the task
   describes, stop and show me what you found instead of improvising.
 - Never generate placeholder implementations without telling me.
+
+## Reference environment
+
+This project was built and demoed against the setup below. Never write account
+identifiers, instance URLs or credentials into committed files; use placeholders.
+
+- Salesforce: Developer Edition. The Salesforce CLI is authenticated locally with alias
+  gtm-dev.
+- Snowflake: Standard edition on AWS US East (N. Virginia).
+- Slack: workspace with channels #lead-review and #gtm-alerts. The Slack app is created
+  from slack/manifest.yaml, with interactivity off until the review-decision webhook
+  exists (task 7).
+- Vercel: the service is deployed at https://gtm-lead-enrichment.vercel.app with Root
+  Directory service.
+- n8n: self-hosted, version 1.123.21, with the crypto builtin enabled in Code nodes. Use
+  only node types and typeVersions that exist in this version.
+- Model: Claude Sonnet 4.5 on Amazon Bedrock, region us-east-1. The model or inference
+  profile ID comes from LLM_MODEL_ID.
+- Bedrock credentials for Vercel: a dedicated IAM user allowed only bedrock:InvokeModel on
+  the configured model or inference profile and the foundation models it routes to. Keys
+  live only in Vercel environment variables. Keyless OIDC federation is a documented next
+  step.
