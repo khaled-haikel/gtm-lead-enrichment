@@ -6,9 +6,10 @@ USE ROLE SYSADMIN;
 USE DATABASE GTM_DEMO;
 USE SCHEMA ANALYTICS;
 
--- One row per EVENT_ID. If n8n loaded an event twice, the first load wins.
+-- One row per EVENT_ID. If n8n loaded an event twice, the first load wins. PAYLOAD arrives
+-- as JSON text and is parsed here; text that is not valid JSON becomes NULL, not an error.
 CREATE OR REPLACE VIEW ANALYTICS.V_ENRICHMENT_EVENTS COPY GRANTS
-  COMMENT = 'RAW.ENRICHMENT_EVENTS with one row per EVENT_ID'
+  COMMENT = 'RAW.ENRICHMENT_EVENTS with one row per EVENT_ID and PAYLOAD parsed as JSON'
 AS
 SELECT
   EVENT_ID,
@@ -24,7 +25,7 @@ SELECT
   COST_USD,
   SIGNALS_KEPT,
   SIGNALS_DROPPED,
-  PAYLOAD,
+  TRY_PARSE_JSON(PAYLOAD) AS PAYLOAD,
   OCCURRED_AT,
   LOADED_AT
 FROM RAW.ENRICHMENT_EVENTS
