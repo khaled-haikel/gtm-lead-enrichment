@@ -1,0 +1,126 @@
+-- 003_analytics.sql: every metric as a view over RAW. Deduplication and "latest state"
+-- use QUALIFY, so RAW never needs an UPDATE.
+-- Safe to re-run: views hold no data. COPY GRANTS keeps GTM_LOADER's SELECT on replace.
+
+USE ROLE SYSADMIN;
+USE DATABASE GTM_DEMO;
+USE SCHEMA ANALYTICS;
+
+-- One row per EVENT_ID. If n8n loaded an event twice, the first load wins.
+CREATE OR REPLACE VIEW ANALYTICS.V_ENRICHMENT_EVENTS COPY GRANTS
+  COMMENT = 'RAW.ENRICHMENT_EVENTS with one row per EVENT_ID'
+AS
+SELECT
+  EVENT_ID,
+  LEAD_ID,
+  EVENT_TYPE,
+  RULES_VERSION,
+  MODEL,
+  SCORE,
+  TIER,
+  LATENCY_MS,
+  INPUT_TOKENS,
+  OUTPUT_TOKENS,
+  COST_USD,
+  SIGNALS_KEPT,
+  SIGNALS_DROPPED,
+  PAYLOAD,
+  OCCURRED_AT,
+  LOADED_AT
+FROM RAW.ENRICHMENT_EVENTS
+QUALIFY ROW_NUMBER() OVER (PARTITION BY EVENT_ID ORDER BY LOADED_AT, OCCURRED_AT) = 1;
+
+-- The latest snapshot of each lead.
+CREATE OR REPLACE VIEW ANALYTICS.V_LEAD_CURRENT COPY GRANTS
+  COMMENT = 'Latest RAW.SF_LEAD_SNAPSHOT row per lead'
+AS
+SELECT
+  LEAD_ID,
+  STATUS,
+  TIER,
+  SCORE,
+  COMPANY_TYPE,
+  EMPLOYEE_BAND,
+  ENRICHED_AT,
+  REVIEWED_AT,
+  REVIEWED_BY,
+  SF_LAST_MODIFIED,
+  SNAPSHOT_AT
+FROM RAW.SF_LEAD_SNAPSHOT
+QUALIFY ROW_NUMBER() OVER (
+  PARTITION BY LEAD_ID
+  ORDER BY SNAPSHOT_AT DESC, SF_LAST_MODIFIED DESC NULLS LAST
+) = 1;
+
+-- Lead count by current status, including statuses with no leads, in funnel order.
+CREATE OR REPLACE VIEW ANALYTICS.V_FUNNEL COPY GRANTS
+  COMMENT = 'Current lead count per enrichment status'
+AS
+WITH STAGES (STAGE_ORDER, STATUS) AS (
+  SELECT * FROM VALUES
+    (1, 'Pending'),
+    (2, 'Enriching'),
+    (3, 'Awaiting_Review'),
+    (4, 'Approved'),
+    (5, 'Rejected'),
+    (6, 'Duplicate'),
+    (7, 'Failed')
+)
+SELECT
+  s.STAGE_ORDER,
+  s.STATUS,
+  COUNT(l.LEAD_ID) AS LEADS
+FROM STAGES s
+LEFT JOIN ANALYTICS.V_LEAD_CURRENT l
+  ON l.STATUS = s.STATUS
+GROUP BY s.STAGE_ORDER, s.STATUS;
+
+-- Review outcomes per tier. The approval rate counts reviewed leads only.
+CREATE OR REPLACE VIEW ANALYTICS.V_APPROVAL_BY_TIER COPY GRANTS
+  COMMENT = 'Approved, rejected and approval rate per tier'
+AS
+SELECT
+  TIER,
+  COUNT_IF(STATUS = 'Approved') AS APPROVED,
+  COUNT_IF(STATUS = 'Rejected') AS REJECTED,
+  ROUND(APPROVED / NULLIF(APPROVED + REJECTED, 0), 3) AS APPROVAL_RATE
+FROM ANALYTICS.V_LEAD_CURRENT
+WHERE STATUS IN ('Approved', 'Rejected')
+GROUP BY TIER;
+
+-- Hours from enrichment to the rep's decision, for reviewed leads.
+CREATE OR REPLACE VIEW ANALYTICS.V_REVIEW_TIME COPY GRANTS
+  COMMENT = 'Median and p90 hours between ENRICHED_AT and REVIEWED_AT'
+AS
+WITH REVIEWED AS (
+  SELECT TIMESTAMPDIFF('second', ENRICHED_AT, REVIEWED_AT) / 3600 AS HOURS_TO_REVIEW
+  FROM ANALYTICS.V_LEAD_CURRENT
+  WHERE ENRICHED_AT IS NOT NULL
+    AND REVIEWED_AT IS NOT NULL
+)
+SELECT
+  COUNT(*) AS REVIEWED_LEADS,
+  ROUND(MEDIAN(HOURS_TO_REVIEW), 2) AS MEDIAN_HOURS,
+  ROUND(PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY HOURS_TO_REVIEW), 2) AS P90_HOURS
+FROM REVIEWED;
+
+-- Cost and quality per model and rules version, over events that called a model.
+-- Cost per lead divides total cost by distinct leads, so re-enrichments count against it.
+CREATE OR REPLACE VIEW ANALYTICS.V_ENRICHMENT_COST COPY GRANTS
+  COMMENT = 'Average cost per lead, median latency and dropped-signal share by model and rules version'
+AS
+SELECT
+  MODEL,
+  RULES_VERSION,
+  COUNT(*) AS EVENTS,
+  COUNT(DISTINCT LEAD_ID) AS LEADS,
+  ROUND(SUM(COST_USD), 6) AS TOTAL_COST_USD,
+  ROUND(SUM(COST_USD) / NULLIF(COUNT(DISTINCT LEAD_ID), 0), 6) AS AVG_COST_PER_LEAD_USD,
+  MEDIAN(LATENCY_MS) AS MEDIAN_LATENCY_MS,
+  ROUND(
+    SUM(SIGNALS_DROPPED) / NULLIF(SUM(SIGNALS_KEPT) + SUM(SIGNALS_DROPPED), 0),
+    3
+  ) AS DROPPED_SIGNAL_SHARE
+FROM ANALYTICS.V_ENRICHMENT_EVENTS
+WHERE MODEL IS NOT NULL
+GROUP BY MODEL, RULES_VERSION;
