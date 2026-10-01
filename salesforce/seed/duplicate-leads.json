@@ -1,0 +1,24 @@
+{
+  "records": [
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead24" },
+      "FirstName": "Maya",
+      "LastName": "Okafor",
+      "Title": "Influencer Marketing Lead",
+      "Company": "Glossier",
+      "Email": "maya.okafor@glossier.com",
+      "Website": "https://www.glossier.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead25" },
+      "FirstName": "Clara",
+      "LastName": "Jensen",
+      "Title": "Developer Relations Lead",
+      "Company": "Twilio",
+      "Email": "clara.jensen@twilio.com",
+      "Website": "https://www.twilio.com",
+      "Enrichment_Status__c": "Pending"
+    }
+  ]
+}

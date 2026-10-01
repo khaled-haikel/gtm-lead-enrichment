@@ -1,0 +1,38 @@
+// Active values of the standard Lead Industry picklist in the reference org, in org order.
+// Source: `sf sobject describe --sobject Lead --target-org gtm-dev` (API 67.0), 2026-10-01.
+// The Lead field Industry_Detected__c offers exactly these values plus "Unknown"; keep both in
+// sync if the org's Industry picklist changes.
+export const INDUSTRIES = [
+  "Agriculture",
+  "Apparel",
+  "Banking",
+  "Biotechnology",
+  "Chemicals",
+  "Communications",
+  "Construction",
+  "Consulting",
+  "Education",
+  "Electronics",
+  "Energy",
+  "Engineering",
+  "Entertainment",
+  "Environmental",
+  "Finance",
+  "Food & Beverage",
+  "Government",
+  "Healthcare",
+  "Hospitality",
+  "Insurance",
+  "Machinery",
+  "Manufacturing",
+  "Media",
+  "Not For Profit",
+  "Recreation",
+  "Retail",
+  "Shipping",
+  "Technology",
+  "Telecommunications",
+  "Transportation",
+  "Utilities",
+  "Other",
+] as const;

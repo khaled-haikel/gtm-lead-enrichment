@@ -1,0 +1,235 @@
+{
+  "records": [
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead01" },
+      "FirstName": "Maya",
+      "LastName": "Okafor",
+      "Title": "Head of Influencer Marketing",
+      "Company": "Glossier",
+      "Email": "maya.okafor@glossier.com",
+      "Website": "https://www.glossier.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead02" },
+      "FirstName": "Lucas",
+      "LastName": "Brennan",
+      "Title": "Creator Partnerships Manager",
+      "Company": "Gymshark",
+      "Email": "lucas.brennan@gymshark.com",
+      "Website": "https://www.gymshark.com",
+      "Industry": "Apparel",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead03" },
+      "FirstName": "Ines",
+      "LastName": "Duarte",
+      "Title": "Brand Marketing Director",
+      "Company": "Olipop",
+      "Email": "ines.duarte@drinkolipop.com",
+      "Website": "https://drinkolipop.com",
+      "Industry": "Retail",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead04" },
+      "FirstName": "Theo",
+      "LastName": "Lindqvist",
+      "Title": "Social Media Lead",
+      "Company": "Liquid Death",
+      "Email": "theo.lindqvist@liquiddeath.com",
+      "Website": "https://liquiddeath.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead05" },
+      "FirstName": "Amara",
+      "LastName": "Nwosu",
+      "Title": "VP Marketing",
+      "Company": "Fenty Beauty",
+      "Email": "amara.nwosu@fentybeauty.com",
+      "Website": "https://fentybeauty.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead06" },
+      "FirstName": "Felix",
+      "LastName": "Hartmann",
+      "Title": "Community Manager",
+      "Company": "Allbirds",
+      "Email": "felix.hartmann@allbirds.com",
+      "Website": "https://www.allbirds.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead07" },
+      "FirstName": "Sofia",
+      "LastName": "Marchetti",
+      "Title": "Influencer Program Manager",
+      "Company": "Daniel Wellington",
+      "Email": "sofia.marchetti@danielwellington.com",
+      "Website": "https://www.danielwellington.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead08" },
+      "FirstName": "Daniel",
+      "LastName": "Osei",
+      "Title": "Head of Social",
+      "Company": "e.l.f. Cosmetics",
+      "Email": "daniel.osei@elfcosmetics.com",
+      "Website": "https://www.elfcosmetics.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead09" },
+      "FirstName": "Hana",
+      "LastName": "Takeda",
+      "Title": "Account Director",
+      "Company": "Billion Dollar Boy",
+      "Email": "hana.takeda@billiondollarboy.com",
+      "Website": "https://www.billiondollarboy.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead10" },
+      "FirstName": "Owen",
+      "LastName": "Gallagher",
+      "Title": "Strategy Director",
+      "Company": "Ogilvy",
+      "Email": "owen.gallagher@ogilvy.com",
+      "Website": "https://www.ogilvy.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead11" },
+      "FirstName": "Leila",
+      "LastName": "Haddad",
+      "Title": "Head of Client Services",
+      "Company": "Mediakix",
+      "Email": "leila.haddad@mediakix.com",
+      "Website": "https://mediakix.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead12" },
+      "FirstName": "Mateo",
+      "LastName": "Vargas",
+      "Title": "Partnerships Lead",
+      "Company": "The Influencer Marketing Factory",
+      "Email": "mateo.vargas@theinfluencermarketingfactory.com",
+      "Website": "https://theinfluencermarketingfactory.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead13" },
+      "FirstName": "Grace",
+      "LastName": "Whitfield",
+      "Title": "Senior Product Manager",
+      "Company": "Atlassian",
+      "Email": "grace.whitfield@atlassian.com",
+      "Website": "https://www.atlassian.com",
+      "Industry": "Technology",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead14" },
+      "FirstName": "Ravi",
+      "LastName": "Menon",
+      "Title": "Engineering Manager",
+      "Company": "Datadog",
+      "Email": "ravi.menon@datadoghq.com",
+      "Website": "https://www.datadoghq.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead15" },
+      "FirstName": "Clara",
+      "LastName": "Jensen",
+      "Title": "Developer Relations Lead",
+      "Company": "Twilio",
+      "Email": "clara.jensen@twilio.com",
+      "Website": "https://www.twilio.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead16" },
+      "FirstName": "Noah",
+      "LastName": "Feldman",
+      "Title": "Security Engineer",
+      "Company": "Cloudflare",
+      "Email": "noah.feldman@cloudflare.com",
+      "Website": "https://www.cloudflare.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead17" },
+      "FirstName": "Yuki",
+      "LastName": "Moreau",
+      "Title": "Operations Manager",
+      "Company": "Katz's Delicatessen",
+      "Email": "yuki.moreau@katzsdelicatessen.com",
+      "Website": "https://katzsdelicatessen.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead18" },
+      "FirstName": "Elena",
+      "LastName": "Petrova",
+      "Title": "Marketing Coordinator",
+      "Company": "Franklin Barbecue",
+      "Email": "elena.petrova@franklinbbq.com",
+      "Website": "https://franklinbbq.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead19" },
+      "FirstName": "Marcus",
+      "LastName": "Bell",
+      "Title": "Store Manager",
+      "Company": "Russ & Daughters",
+      "Email": "marcus.bell@russanddaughters.com",
+      "Website": "https://www.russanddaughters.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead20" },
+      "FirstName": "Zara",
+      "LastName": "Qureshi",
+      "Title": "Shift Manager",
+      "Company": "Joe's Pizza",
+      "Email": "zara.qureshi@joespizzanyc.com",
+      "Website": "https://www.joespizzanyc.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead21" },
+      "FirstName": "Sam",
+      "LastName": "Rivera",
+      "Title": "Owner",
+      "Company": "Rivera Candle Co.",
+      "Email": "sam.rivera.candles@gmail.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead22" },
+      "FirstName": "Priya",
+      "LastName": "Nair",
+      "Title": "Founder",
+      "Company": "Nair Studio",
+      "Email": "priya.nair.studio@outlook.com",
+      "Enrichment_Status__c": "Pending"
+    },
+    {
+      "attributes": { "type": "Lead", "referenceId": "Lead23" },
+      "FirstName": "Iris",
+      "LastName": "Calloway",
+      "Title": "Marketing Manager",
+      "Company": "Lumen & Lark",
+      "Email": "iris.calloway@lumenandlark.invalid",
+      "Website": "https://www.lumenandlark.invalid",
+      "Enrichment_Status__c": "Pending"
+    }
+  ]
+}

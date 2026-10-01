@@ -17,6 +17,10 @@ coverage/
 # Vercel
 .vercel/
 
+# Salesforce CLI local state
+.sf/
+.sfdx/
+
 # Logs
 npm-debug.log*
 

@@ -1,0 +1,11 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true
+    }
+  ],
+  "name": "gtm-lead-enrichment",
+  "namespace": "",
+  "sourceApiVersion": "67.0"
+}

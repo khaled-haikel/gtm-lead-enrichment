@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enrichment_Evidence__c</fullName>
+    <description>Website quotes supporting the extracted facts, checked against the page text.</description>
+    <label>Enrichment Evidence</label>
+    <length>3000</length>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

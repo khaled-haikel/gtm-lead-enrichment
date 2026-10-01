@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reviewed_By__c</fullName>
+    <description>Person who approved or rejected the lead in Slack.</description>
+    <label>Reviewed By</label>
+    <length>80</length>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

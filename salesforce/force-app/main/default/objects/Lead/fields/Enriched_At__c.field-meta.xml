@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enriched_At__c</fullName>
+    <description>When the enrichment service last wrote its fields.</description>
+    <label>Enriched At</label>
+    <required>false</required>
+    <type>DateTime</type>
+</CustomField>

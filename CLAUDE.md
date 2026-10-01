@@ -35,6 +35,12 @@ anywhere in the repository.
    not write to Snowflake.
 10. **Website text is untrusted input.** It is passed to the model as delimited data,
     never as instructions.
+11. **The CRM's duplicate rule stays on; the integration is duplicate-aware.** The
+    pipeline only updates existing leads and owns deduplication itself, so every
+    Salesforce write it makes sends `Sforce-Duplicate-Rule-Header: allowSave=true`. A
+    DUPLICATES_DETECTED response is logged as a failure and never retried blindly. If the
+    native Salesforce node cannot send that header, the write goes through the HTTP
+    Request node using the Salesforce credential.
 
 ## Layout
 
